@@ -10,12 +10,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-os.environ["OPENAI_API_KEY"]=os.getenv("OPENAI_API_KEY")
+apikey=os.getenv("OPENAI_API_KEY")
 
 # Define the Data Agent
 Data_agent = Agent(
     name="Data Agent",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-4o",api_key=apikey),
     tools=[DuckDuckGoTools()],
     description="Finds and categorizes 10 startups, 10 MNCs, and 10 product-based companies in the specified location.",
     instructions=[
@@ -33,7 +33,7 @@ Data_agent = Agent(
 # Define the Job Search Agent
 Jobsearch_agent = Agent(
     name="Job Search Agent",
-     model=OpenAIChat(id="gpt-4o"),
+     model=OpenAIChat(id="gpt-4o",api_key=apikey),
     tools=[DuckDuckGoTools()],
     description="Finds job openings at the companies provided by the Data Agent based on the user's job role preference and experience level.",
     instructions=[
@@ -51,7 +51,7 @@ Jobsearch_agent = Agent(
 # Define the Location Agent
 location_agent = Agent(
     name="Location Agent",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-4o",api_key=apikey),
     tools=[DuckDuckGoTools()],
     description="Provides detailed travel guidance to companies based on major landmarks and transport options.",
     instructions=[
@@ -71,7 +71,7 @@ location_agent = Agent(
 multi_agent_team = Team(
     name="Multi-Agent Team",
     mode="collaborate",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-4o",api_key=apikey),
     members=[Data_agent, Jobsearch_agent, location_agent],
     share_member_interactions=True, 
     show_tool_calls=True,
